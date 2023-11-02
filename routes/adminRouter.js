@@ -1,9 +1,12 @@
 const express = require('express')
-const userRouter = express.Router()
+const adminRouter = express.Router()
 
-const userController = require('../controller/userController')
+const adminController = require('../controller/adminController')
 
-userRouter.get('/',userController.wd)
+adminRouter.get('/login',adminController.adminLogin);
+adminRouter.post('/login')
+
+adminRouter.get('/',adminController.adminPage);
 
 
-module.exports = userRouter
+module.exports = adminRouter

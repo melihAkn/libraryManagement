@@ -1,7 +1,6 @@
 # libraryManagement
 
 # umut kutuphane yapılacaklar
-bu repo profilimde bulunan su https://github.com/melihAkn/KutuphaneOtomasyon reponun nodejs ile yaptıgım bir versiyonu
 index sayfası
 <h2> nav bar özellikleri </h2>
 <li>anasayfa</li>
