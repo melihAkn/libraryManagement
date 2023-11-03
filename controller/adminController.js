@@ -4,7 +4,7 @@ const adminLogin = (req , res) => {
 }
 
 const adminPage = (req , res) => {
-res.render('./adminPages/admin',{layout : './adminLayout'})
+res.render('./adminPages/admin')
 }
 
 module.exports = {
