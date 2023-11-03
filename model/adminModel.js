@@ -1,7 +1,7 @@
 require('dotenv').config();
 const secretKey = process.env.SECRET_KEY;
 const mongoose = require('mongoose');
-const schema = new mongoose.Schema
+const schema =  mongoose.Schema
 const adminSchema = new schema({
 
     username : {
@@ -45,6 +45,6 @@ adminSchema.methods.login = async (username , password) => {
             return adminFind;
     }
 
-const admin = mongoose.model('admin', adminSchema);
-module.exports = admin;
+const Admin = mongoose.model('admin', adminSchema);
+module.exports = Admin;
 

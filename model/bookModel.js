@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const schema = new mongoose.Schema
+const schema =  mongoose.Schema
 const bookSchema = new schema({
 
     name :{
@@ -60,7 +60,7 @@ const bookSchema = new schema({
         maxLength : 256,
     },
 
-},{collection:'books', timestamps: true})
+},{collection:'Books', timestamps: true})
 
-const books = mongoose.model('books', bookSchema);
-module.exports = books;
+const Books = mongoose.model('Books', bookSchema);
+module.exports = Books;
