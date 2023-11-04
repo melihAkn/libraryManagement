@@ -1,0 +1,52 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.card .card-text {
+    margin-top: 5px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+section {
+    padding: 20px;
+    text-align: center;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.library-description {
+    margin: 20px 0;
+}
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}

@@ -25,7 +25,7 @@ const userSchema = new schema({
         minlength : 8,
         maxlength : 256
     },
-    eMail : {
+    email : {
         type : String,
         required : true,
         maxlength : 256,
@@ -34,6 +34,18 @@ const userSchema = new schema({
         type : String,
         required : false,
     },
+    favoritedBooks : {
+        type : Array,
+        Books : [{ type: String }],
+        required : false,
+        default : []
+    },
+    borrowedBooks : {
+        type : Array,
+        Books : [{ type: String }],
+        required : false,
+        default : []
+    }
 },{collection:'users', timestamps: true})
 
 const Users = mongoose.model('users', userSchema);
