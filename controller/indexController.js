@@ -2,18 +2,27 @@ const bookModel = require('../model/bookModel')
 
 
 
-const index = (req,res) => {
+const indexPage = (req,res) => {
     res.render('./indexPages/index')
 }
-const about = (req,res) => {
+const aboutPage = (req,res) => {
     res.render('./indexPages/about')
 }
-const contact = (req,res) => {
+const contactPage = (req,res) => {
     res.render('./indexPages/contact')
 }
-const searchBooks = (req,res) => {
+const searchBooksPage = (req,res) => {
     res.render('./indexPages/searchBooks')
 }
+
+const userLoginPage = (req,res) => {
+    res.render('./userPages/userLogin')
+}
+
+const userRegisterPage = (req,res) => {
+    res.render('./userPages/userRegister')
+}
+
 const getBooks = async (req,res) => {
     let bookFilter = {
         name :''
@@ -36,9 +45,11 @@ const getBooks = async (req,res) => {
     
 }
 module.exports = {
-    index,
-    about,
-    contact,
-    searchBooks,
+    indexPage,
+    aboutPage,
+    contactPage,
+    userLoginPage,
+    userRegisterPage,
+    searchBooksPage,
     getBooks
 }

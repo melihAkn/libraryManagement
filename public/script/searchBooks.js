@@ -31,9 +31,11 @@ const getBooks = _ => {
                 `
                 //eger kullanıcı giris yapıp token basarili bir sekilde olustrulmussa gelen kitaplara favorilere ekleme ve ödunc alma butonları eklenmeli 
                 //ve o butonlara tiklayınca veritabanına eklenmeli
+                /*
                 if(token){
 
                 }
+                */
                 cardContainer.appendChild(card)
         });  
 
