@@ -5,18 +5,35 @@ const userPage = (req,res) => {
 }
 
 const userLogin = async(req,res) => {
-    console.log(req.body)
+    try {
+        const userLogin = await userModel.login(req.body.username,req.body.password)
+       console.log(userLogin)
+        if(!userLogin.error){
+            res.status(200).redirect('/')
+        }
+        else{
+            console.log(userLogin.error)
+            res.status(500).render('./userPages/userLogin',{message : userLogin.error})
+        }
+    } catch (e) {
+        console.log(e)
+        res.status(500).render('./userPages/userLogin',{message : e})
+    }
+ 
 }
 const userRegister = async(req,res) => {
-    console.log(req)
-    const user = new userModel(req.body)
-    const result = user.save()
-    if(result){
-        res.send(result)
+    try {
+        console.log(req.body)
+        const user = new userModel(req.body)
+        const result = await user.save()
+        if(result){
+            res.status(200).redirect('/userLogin');
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.render('./userPages/userRegister',{message : error.message})
     }
-    else{
-        res.send(result)
-    }
+
 
 }
 module.exports = {

@@ -9,11 +9,11 @@
 <body>
     
         <form id="myForm" action="/userLogin" method="post" enctype="application/json" >
-            <input type="text" name="bookStoreUserName" placeholder="username">
-            <input type="password" name="bookStorePassword" placeholder="password"> 
+            <input type="text" name="username" placeholder="username">
+            <input type="password" name="password" placeholder="password"> 
             <button type="submit"> login</button>
         
     </form>
-    <p> {{message.hata}} </p>
+    {{message}}
 </body>
 </html>

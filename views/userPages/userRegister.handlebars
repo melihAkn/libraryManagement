@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/userRegister.css">
 </head>
 <body>
-    <form id="registerForm" action="/userRegister" method="post" >
+    <form  method="post" id="registerForm" enctype="application/json" >
     <label for="name">name</label>
         <input type="text" id="name" name="name" required>
     <label for="surname">surname</label>
@@ -24,6 +24,9 @@
     <button type="submit">Register</button>
     
     </form>
+
+     <p class="responseMessage"></p>
+    {{message}}
     <script src="/script/userRegister.js"></script>
 </body>
 </html>

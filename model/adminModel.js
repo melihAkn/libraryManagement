@@ -36,7 +36,7 @@ adminSchema.methods.login = async (username , password) => {
             username,
             password
           };
-          const adminFind = await admin.find(filter)
+          const adminFind = await Admin.find(filter)
         if(!adminFind){
            return {
             error : "username or password is wrong"

@@ -48,5 +48,21 @@ const userSchema = new schema({
     }
 },{collection:'users', timestamps: true})
 
+userSchema.statics.login = async (username , password) => {
+    const filter = {
+        username,
+        password
+      };
+      const userFind = await Users.findOne(filter)
+    if(!userFind){
+       return {
+        error : "username or password is wrong"
+       }
+    }
+        return userFind;
+}
+
+
+
 const Users = mongoose.model('users', userSchema);
 module.exports = Users;
