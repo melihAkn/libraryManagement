@@ -19,6 +19,6 @@ POST {{BASE_URL}}/userLogin
 Content-Type: application/json
 
 {
-    "username" : "sadasd",
-    "password" : "sadsadasd"
+    "username" : "deneme",
+    "password" : "deneme123"
 }

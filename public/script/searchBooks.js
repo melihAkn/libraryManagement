@@ -1,9 +1,18 @@
-console.log('buradayim')
 const searchButton = document.querySelector('.searchButton')
 const searchText = document.querySelector('.searchText')
-console.log(searchText)
+let token
+async function getCookie() {
+
+    await fetch('/getCookie')
+    .then(response => response.json())
+    .then(data => {
+        token = data.token
+    })
+    .catch(e => console.log(e))
+}
+//eger token gecerliyse nav barda kayıt ol ve giris yap navigasyonları kaldırılmalı ve hesabım ve cıkıs yap navigasyonları eklenmeli eğer çıkış yaparsa tam tersi
 const getBooks = _ => {
-    console.log(searchText.value)
+    
     const getBooksURL = `/getBooks/${searchText.value.toString()}`
     fetch(getBooksURL)
     .then(response => response.json())
@@ -29,8 +38,23 @@ const getBooks = _ => {
                         <p class="card-text">kitap aciklamasi: ${bookArray.description}</p>
                     </div>
                 `
+                console.log(token)
+                if(typeof token !== 'undefined'){
+                    const editButton = document.createElement("button")
+                    editButton.id = "addFavorite"
+                    editButton.textContent = "addFavorite"
+                    editButton.addEventListener('click', _ => {console.log("tiklandi")})
+                    const borrowButton = document.createElement('button')
+                    borrowButton.id = "borrow"
+                    borrowButton.textContent = "borrow"
+                    borrowButton.addEventListener('click', _ => {console.log("tiklandi")})
+                    card.append(editButton,borrowButton)
+
+                }               
                 //eger kullanıcı giris yapıp token basarili bir sekilde olustrulmussa gelen kitaplara favorilere ekleme ve ödunc alma butonları eklenmeli 
                 //ve o butonlara tiklayınca veritabanına eklenmeli
+                //yontem 1 butonlari veriyi cekerken ekleyip gorunurlugu hidden yapmak
+                //yontem 2 kartlar geldikten sonra if ile token varsa ve geçerliyse butonları eklemek
                 /*
                 if(token){
 
@@ -54,4 +78,8 @@ const getBooks = _ => {
 
 
 searchButton.addEventListener('click',getBooks)
-document.addEventListener('DOMContentLoaded',getBooks)
+document.addEventListener('DOMContentLoaded',async function() {
+    await getCookie()
+    getBooks()
+    
+})

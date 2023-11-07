@@ -17,6 +17,7 @@ indexRouter.post('/userLogin',userController.userLogin)
 indexRouter.get('/userRegister',indexController.userRegisterPage)
 indexRouter.post('/userRegister',userController.userRegister)
 
+indexRouter.get('/getCookie',indexController.getCookie)
 module.exports = indexRouter
 
 

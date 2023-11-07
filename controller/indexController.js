@@ -23,6 +23,20 @@ const userRegisterPage = (req,res) => {
     res.render('./userPages/userRegister')
 }
 
+const getCookie = (req,res) => {
+    //raw headers da token var
+    try {
+        const token = req.headers.cookie.split('token=')[1]
+        console.log(token)
+        if(token){
+            res.status(200).send({token})
+        }
+    } catch (error) {
+        res.status(401).send('token not found',error)
+    }
+ 
+}
+
 const getBooks = async (req,res) => {
     let bookFilter = {
         name :''
@@ -51,5 +65,6 @@ module.exports = {
     userLoginPage,
     userRegisterPage,
     searchBooksPage,
-    getBooks
+    getBooks,
+    getCookie
 }

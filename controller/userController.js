@@ -7,13 +7,14 @@ const userPage = (req,res) => {
 const userLogin = async(req,res) => {
     try {
         const userLogin = await userModel.login(req.body.username,req.body.password)
-       console.log(userLogin)
         if(!userLogin.error){
+            res.cookie('token',userLogin.token,{maxAge : 3600000,httpOnly: true})
             res.status(200).redirect('/')
         }
         else{
             console.log(userLogin.error)
             res.status(500).render('./userPages/userLogin',{message : userLogin.error})
+            
         }
     } catch (e) {
         console.log(e)

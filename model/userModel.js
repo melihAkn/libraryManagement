@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const schema =  mongoose.Schema
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
 const userSchema = new schema({
     name : {
         type : String,
@@ -49,19 +52,33 @@ const userSchema = new schema({
 },{collection:'users', timestamps: true})
 
 userSchema.statics.login = async (username , password) => {
+    const secretKey = process.env.SECRET_KEY
     const filter = {
         username,
         password
       };
       const userFind = await Users.findOne(filter)
+      
     if(!userFind){
        return {
         error : "username or password is wrong"
        }
     }
-        return userFind;
-}
+    const token = jwt.sign({id : userFind._id},secretKey)
+    userFind.token = token
+        return {
+            user : userFind,
+            token
+        }
+        }
+        
 
+userSchema.method.generateToken = async (user) => {
+
+
+
+
+}
 
 
 const Users = mongoose.model('users', userSchema);
