@@ -18,6 +18,9 @@ indexRouter.get('/userRegister',indexController.userRegisterPage)
 indexRouter.post('/userRegister',userController.userRegister)
 
 indexRouter.get('/getCookie',indexController.getCookie)
+indexRouter.get('/validToken',indexController.validToken)
+
+indexRouter.post('/userAddFavoriteAndBorrow/:buttonName',userController.userAddFavoriteAndBorrow)
 module.exports = indexRouter
 
 

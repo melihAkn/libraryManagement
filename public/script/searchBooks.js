@@ -1,12 +1,50 @@
 const searchButton = document.querySelector('.searchButton')
 const searchText = document.querySelector('.searchText')
 let token
-async function getCookie() {
+let isTokenValid
+let userButtonsURL = '/userAddFavoriteAndBorrow'
 
-    await fetch('/getCookie')
-    .then(response => response.json())
-    .then(data => {
-        token = data.token
+const indexHeaders = document.getElementById('indexNavBar')
+
+
+async function getToken() {
+    try {
+        await fetch('/getCookie')
+        .then(response => response.json())
+        .then(data => {
+            token = data.token
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function tokenIsValid(token){
+    await fetch('/validToken',{
+        method : 'get',
+        headers : {
+            authorization : `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        if(response.status == 200){
+            isTokenValid = true
+             // remove login and register routes
+            indexHeaders.childNodes[1].childNodes[9].remove();
+            indexHeaders.childNodes[1].childNodes[10].remove();
+            const logoutLi = document.createElement('li');
+            logoutLi.innerHTML = '<a href="/logout">logout</a>';
+            indexHeaders.childNodes[1].appendChild(logoutLi);
+
+             return isTokenValid
+             
+        }else{
+            isTokenValid = false
+           return isTokenValid
+        }
+        
     })
     .catch(e => console.log(e))
 }
@@ -17,7 +55,6 @@ const getBooks = _ => {
     fetch(getBooksURL)
     .then(response => response.json())
     .then(bookData => {
-        console.log(bookData)
         const cardContainer = document.querySelector(".card-container")
         cardContainer.textContent = ""
         cardContainer.innerHTML = ""
@@ -38,17 +75,54 @@ const getBooks = _ => {
                         <p class="card-text">kitap aciklamasi: ${bookArray.description}</p>
                     </div>
                 `
-                console.log(token)
-                if(typeof token !== 'undefined'){
-                    const editButton = document.createElement("button")
-                    editButton.id = "addFavorite"
-                    editButton.textContent = "addFavorite"
-                    editButton.addEventListener('click', _ => {console.log("tiklandi")})
+                if(isTokenValid){
+
+                    //this function belongs here or send the card element then doesnt belongs here 
+                    const addFavoriteOrBorrwed = (buttonName) => {
+                        const bookData = card.childNodes[1].childNodes
+                        const cardData = {
+                            bookName : bookData[1].textContent,
+                            bookPublisher : bookData[3].textContent.replace('Yayinci: ',''),
+                            bookAuthor : bookData[5].textContent.replace('Yazar: ',''),
+                            bookStock : bookData[7].textContent.replace('Stok: ',''),
+                            bookPublicationDate : bookData[9].textContent.replace('Yayinlanma tarihi: ',''),
+                            bookPageCount : bookData[11].textContent.replace('Sayfa sayisi: ',''),
+                            bookBarcodNo : bookData[13].textContent.replace('barkod no: ',''),
+                            bookLanguage : bookData[15].textContent.replace('dil: ',''),
+                            bookCategory : bookData[17].textContent.replace('kategori: ',''),
+                            bookDescription : bookData[19].textContent.replace('kitap aciklamasi: ','')
+
+                        }
+                        fetch(userButtonsURL+'/'+buttonName,{
+                            method : 'post',
+                            headers : {
+                                authorization : `Bearer ${token}`,
+                                "Content-Type": "application/json",
+                            },
+                            body : JSON.stringify(cardData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message)
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
+                    }
+                    const addButton = document.createElement("button")
+                    addButton.id = "addFavorite"
+                    addButton.textContent = "addFavorite"
+                    addButton.addEventListener('click', _ => {
+                        addFavoriteOrBorrwed(addButton.id)
+                    })
                     const borrowButton = document.createElement('button')
-                    borrowButton.id = "borrow"
+                    borrowButton.id = "addBorrow"
                     borrowButton.textContent = "borrow"
-                    borrowButton.addEventListener('click', _ => {console.log("tiklandi")})
-                    card.append(editButton,borrowButton)
+                    borrowButton.addEventListener('click', _ => {
+                        addFavoriteOrBorrwed(borrowButton.id)
+
+                    })
+                    card.append(addButton,borrowButton)
 
                 }               
                 //eger kullanıcı giris yapıp token basarili bir sekilde olustrulmussa gelen kitaplara favorilere ekleme ve ödunc alma butonları eklenmeli 
@@ -79,7 +153,8 @@ const getBooks = _ => {
 
 searchButton.addEventListener('click',getBooks)
 document.addEventListener('DOMContentLoaded',async function() {
-    await getCookie()
+    await getToken()
+    tokenIsValid(token)
     getBooks()
     
 })

@@ -1,6 +1,6 @@
 const bookModel = require('../model/bookModel')
-
-
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const indexPage = (req,res) => {
     res.render('./indexPages/index')
@@ -32,9 +32,26 @@ const getCookie = (req,res) => {
             res.status(200).send({token})
         }
     } catch (error) {
-        res.status(401).send('token not found',error)
+        res.status(401).send({message :'token not found',error})
     }
  
+}
+const validToken =(req,res) => {
+
+    try {
+        const jwtControl = jwt.verify(req.header('Authorization').replace('Bearer ', ''),process.env.SECRET_KEY)
+        if(jwtControl){
+            res.status(200).send('token is valid')
+        }else{
+            throw new error({message :'token is not valid'})
+        }
+        
+        
+        
+    } catch (error) {
+        res.status(401).send({message :'invalid token',error})
+        
+    }
 }
 
 const getBooks = async (req,res) => {
@@ -66,5 +83,6 @@ module.exports = {
     userRegisterPage,
     searchBooksPage,
     getBooks,
-    getCookie
+    getCookie,
+    validToken
 }

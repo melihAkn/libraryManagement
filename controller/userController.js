@@ -1,5 +1,5 @@
 const userModel = require('../model/userModel')
-
+const jwt = require('jsonwebtoken')
 const userPage = (req,res) => {
     res.render('userPages/account')
 }
@@ -37,8 +37,45 @@ const userRegister = async(req,res) => {
 
 
 }
+const userAddFavoriteAndBorrow = async(req,res) => {
+    let responseMessage
+    try {
+        console.log(req.body)
+        const favoritedOrBorrowedBook = {
+            name : req.body.bookName,
+            publisher : req.body.bookPublisher,
+            author : req.body.bookAuthor,
+            stock : req.body.bookStock,
+            publicationDate : req.body.bookPublicationDate,
+            pageCount : req.body.BookPageCount,
+            ISBN : req.body.bookBarcodNo,
+            language : req.body.bookLanguage,
+            genre : req.body.bookCategory,
+            description : req.body.bookDescription
+        }
+            const jwtUserId = jwt.verify(req.header('Authorization').replace('Bearer ', ''),process.env.SECRET_KEY)
+            const userExist = await userModel.findById({_id : jwtUserId.id})
+
+            if(!userExist == [] && req.params.buttonName === 'addFavorite'){
+                userExist.favoritedBooks.push(favoritedOrBorrowedBook)
+                await userExist.save()
+                responseMessage = 'this book was succesfully add favorited'
+
+            }else if(!userExist == [] && req.params.buttonName === 'addBorrow'){
+                userExist.borrowedBooks.push(favoritedOrBorrowedBook)
+                await userExist.save()
+                responseMessage = 'this book was succesfully add borrowed'
+            }
+        res.status(200).send({message : responseMessage})
+    } catch (error) {
+        res.status(500).send({error})
+    }
+   
+
+}
 module.exports = {
     userPage,
     userLogin,
-    userRegister
+    userRegister,
+    userAddFavoriteAndBorrow
 }
