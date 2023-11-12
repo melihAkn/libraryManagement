@@ -25,7 +25,7 @@ async function sendContactInfos(){
         // Handle error
     });
 }
-
+ 
 contactForm.addEventListener('submit',sendContactInfos)
 
 
