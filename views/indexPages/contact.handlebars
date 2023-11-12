@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/css/contact.css">
 </head>
 <body>
-    <form>
-    <label for="name" > name and surname</label>
-    <input type="text" id="name"> <br>
+    <form  method="post" id="contactInfos" enctype="application/json">
+    <label for="nameAndSurname" > name and surname</label>
+    <input type="text" id="nameAndSurname" name="nameAndSurname"> <br>
    
-    <label for="contact" > contact address(e-mail)</label>  
-    <input type="text" id="contact"><br>
+    <label for="contactAddress" > contact address(e-mail)</label>  
+    <input type="text" id="contactAddress" name="contactAddress"><br>
    
     <label for="message" > message </label>     
-    <textarea id="message">
+    <textarea id="message" name="message">
 
     </textarea><br><br>
     <button type="submit"> send message</button>

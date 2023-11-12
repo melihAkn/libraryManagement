@@ -1,4 +1,5 @@
 const bookModel = require('../model/bookModel')
+const userMessagesModel = require('../model/userMessagesModel')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
@@ -75,6 +76,31 @@ const getBooks = async (req,res) => {
     }
     
 }
+
+const userContactRequest = async(req,res) => {
+    try {
+        const messageJSON ={
+            nameAndSurname : req.body.nameAndSurname,
+            contactAddress : req.body.contactAddress,
+            message : req.body.message.replace(/\r?\n|\r/g, '')
+        }
+        console.log(messageJSON)
+        const userMessages = new userMessagesModel(messageJSON)
+        const saveMessageResult = await userMessages.save()
+        console.log(saveMessageResult)
+
+
+        res.status(200).render('./indexPages/contact',{message : 'message was succesfully send'})
+
+    } catch (error) {
+        res.status(500).send({message : error})
+    }
+
+
+
+
+
+}
 module.exports = {
     indexPage,
     aboutPage,
@@ -84,5 +110,6 @@ module.exports = {
     searchBooksPage,
     getBooks,
     getCookie,
-    validToken
+    validToken,
+    userContactRequest
 }

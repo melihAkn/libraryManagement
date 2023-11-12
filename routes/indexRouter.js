@@ -21,6 +21,9 @@ indexRouter.get('/getCookie',indexController.getCookie)
 indexRouter.get('/validToken',indexController.validToken)
 
 indexRouter.post('/userAddFavoriteAndBorrow/:buttonName',userController.userAddFavoriteAndBorrow)
+
+indexRouter.post('/contact',indexController.userContactRequest)
+
 module.exports = indexRouter
 
 

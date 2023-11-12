@@ -2,13 +2,7 @@ const mongoose = require('mongoose')
 const schema =  mongoose.Schema
 const userMessagesSchema = new schema({
 
-    name :{
-        type : String,
-        required : true,
-        maxLength : 64,
-        minLength : 1,
-    },
-    surname : {
+    nameAndSurname :{
         type : String,
         required : true,
         maxLength : 64,
