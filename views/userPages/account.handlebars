@@ -8,17 +8,28 @@
 </head>
 <body>
     <form  method="post">
-    <label for="username">Kullanıcı Adı:</label>
-    <input type="text" id="username" name="username" ><br>
+    <label for="name">name:</label>
+    <input type="text" id="name" name="name" ><br>
 
-    <label for="email">E-Posta Adresi:</label>
-    <input type="email" id="email" name="email" ><br>
+    <label for="surname">surname:</label>
+    <input type="text" id="surname" name="surname" ><br>
+
+    <label for="username">username</label>
+    <input type="text" id="username" name="username" disabled ><br>
+
+    <label for="password">eski Parola:</label>
+    <input type="password" id="password" name="password"><br>
 
     <label for="password">Yeni Parola:</label>
     <input type="password" id="password" name="password"><br>
 
+    <label for="email">email address :</label>
+    <input type="email" id="email" name="email" disabled ><br>
+
+
     <input type="submit" value="Bilgileri Güncelle">
 </form>
 
+<script src="./script/account.js"></script>
 </body>
 </html>

@@ -36,6 +36,7 @@ const userRegister = async(req,res) => {
     }
 
 
+
 }
 const userAddFavoriteAndBorrow = async(req,res) => {
     let responseMessage
@@ -73,9 +74,48 @@ const userAddFavoriteAndBorrow = async(req,res) => {
    
 
 }
+const userFavoritedBooksPage = (req,res) => {
+    res.render('./userPages/userFavoritedBooks')
+}
+
+const userBorrowedBooksPage =  (req,res) => {
+    res.render('./userPages/userBorrowedBooks')
+}
+const getFavoritedBooks = async(req,res) => {
+
+    
+    try {
+        const jwtVerify = jwt.verify(req.header('authorization').replace('Bearer ',''),process.env.SECRET_KEY)
+        console.log(jwtVerify)
+        const userExists = await userModel.findById({_id : jwtVerify.id})
+        if(req.params.name === "" || req.params.name == undefined){
+            res.status(200).send(userExists.favoritedBooks)
+            console.log(userExists)
+        }else{
+            console.log(req.params.name)
+            let matchBooks = []
+            userExists.favoritedBooks.forEach(e => {
+                if(e.name.includes(req.params.name)){
+                    matchBooks.push(e)
+                }
+            })
+           console.log(matchBooks)
+           res.status(200).send(matchBooks)
+        }
+       
+    } catch (error) {
+        res.status(500).send({error : error})
+        console.log(error)
+    }
+  
+
+}
 module.exports = {
     userPage,
     userLogin,
     userRegister,
-    userAddFavoriteAndBorrow
+    userAddFavoriteAndBorrow,
+    userFavoritedBooksPage,
+    userBorrowedBooksPage,
+    getFavoritedBooks
 }

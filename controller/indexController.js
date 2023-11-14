@@ -24,11 +24,11 @@ const userRegisterPage = (req,res) => {
     res.render('./userPages/userRegister')
 }
 
+
 const getCookie = (req,res) => {
     //raw headers da token var
     try {
         const token = req.headers.cookie.split('token=')[1]
-        console.log(token)
         if(token){
             res.status(200).send({token})
         }
@@ -112,4 +112,5 @@ module.exports = {
     getCookie,
     validToken,
     userContactRequest
+
 }

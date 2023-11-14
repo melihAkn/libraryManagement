@@ -5,5 +5,8 @@ const pagesLayoutSet = require('../middleware/pagesLayoutSet')
 userRouter.use(pagesLayoutSet.userPageLayout)
 userRouter.get('/',userController.userPage)
 
+userRouter.get('/favoritedBooks',userController.userFavoritedBooksPage)
 
+userRouter.get('/borrowedBooks',userController.userBorrowedBooksPage)
+userRouter.get('/getFavoritedBooks/:name?',userController.getFavoritedBooks)
 module.exports = userRouter
