@@ -14,9 +14,6 @@ async function getToken() {
         .then(data => {
             token = data.token
         })
-        .catch(e => {
-            console.log(e)
-        })
     } catch (error) {
         console.log(error)
     }
@@ -31,13 +28,14 @@ async function tokenIsValid(token){
     .then(response => {
         if(response.status == 200){
             isTokenValid = true
+            /*
              // remove login and register routes
             indexHeaders.childNodes[1].childNodes[9].remove();
             indexHeaders.childNodes[1].childNodes[10].remove();
             const logoutLi = document.createElement('li');
             logoutLi.innerHTML = '<a href="/logout">logout</a>';
             indexHeaders.childNodes[1].appendChild(logoutLi);
-
+*/
              return isTokenValid
              
         }else{
@@ -136,20 +134,9 @@ const getBooks = _ => {
                 */
                 cardContainer.appendChild(card)
         });  
-
-
-
-
-
-
     })
     .catch(e => console.log(e))
 }
-
-
-
-
-
 
 searchButton.addEventListener('click',getBooks)
 document.addEventListener('DOMContentLoaded',async function() {

@@ -27,6 +27,7 @@ indexRouter.post('/userAddFavoriteAndBorrow/:buttonName',userController.userAddF
 
 indexRouter.post('/contact',indexController.userContactRequest)
 
+indexRouter.get('/removeToken',indexController.removeToken)
 module.exports = indexRouter
 
 

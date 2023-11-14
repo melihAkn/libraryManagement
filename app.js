@@ -11,15 +11,17 @@ const adminRouter = require('./routes/adminRouter')
 const userRouter = require('./routes/userRouter')
 //app start
 const app = express()
-app.use(express.json());
-app.use(express.urlencoded({ extended:true}));
+app.use(cookieParser())
+app.use(express.json())
+app.use(express.urlencoded({ extended:true}))
+
 app.use(express.static('public'))
+
 //route and template engine settings
 app.use('/',indexRouter)
 app.use('/admin',adminRouter)
 app.use('/user',userRouter)
-app.use(cookieParser())
-app.use(express.static('public'))
+
 
 app.engine('handlebars', expHbs.engine())
 app.set('view engine', 'handlebars')

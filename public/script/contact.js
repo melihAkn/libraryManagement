@@ -16,7 +16,6 @@ async function sendContactInfos(){
         body: contactFormDataJSON
     })
     .then(data => {
-        console.log(data);
         alert(data)
         // Handle success response
     })

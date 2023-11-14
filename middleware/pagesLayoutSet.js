@@ -1,5 +1,9 @@
   function indexPageLayout(req, res, next) {
     res.locals.layout = 'indexLayout'
+    if(req.cookies.token){
+      res.locals.layout = 'userLoginIndex'
+    }
+    
     next()
   }
   function adminPageLayout(req, res, next) {

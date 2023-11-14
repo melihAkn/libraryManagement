@@ -22,3 +22,10 @@ Content-Type: application/json
     "username" : "deneme",
     "password" : "deneme123"
 }
+
+###
+
+GET {{BASE_URL}}/removeToken
+
+###
+GET {{BASE_URL}}/user

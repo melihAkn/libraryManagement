@@ -25,3 +25,6 @@ main {
     justify-content: center;
     margin: 20px;
 }
+.logout-link {
+    cursor: pointer; 
+  }

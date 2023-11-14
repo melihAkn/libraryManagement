@@ -2,7 +2,6 @@ const responseMessage = document.querySelector('.responseMessage')
 const registerForm = document.getElementById('registerForm')
 registerForm.addEventListener('submit',function(e) {
     const registerFormData = new FormData(registerForm)
-    console.log(registerFormData)
     const formData = {
         name :registerFormData.get('name'),
         surname :registerFormData.get('surname'),
@@ -18,11 +17,6 @@ registerForm.addEventListener('submit',function(e) {
           },
         body : formData
 
-    })
-    .then(e => {
-        
-        console.log(e)
-        
     })
     .catch(e => console.log(e))
     responseMessage.value = e.message

@@ -84,10 +84,8 @@ const userContactRequest = async(req,res) => {
             contactAddress : req.body.contactAddress,
             message : req.body.message.replace(/\r?\n|\r/g, '')
         }
-        console.log(messageJSON)
         const userMessages = new userMessagesModel(messageJSON)
         const saveMessageResult = await userMessages.save()
-        console.log(saveMessageResult)
 
 
         res.status(200).render('./indexPages/contact',{message : 'message was succesfully send'})
@@ -97,9 +95,10 @@ const userContactRequest = async(req,res) => {
     }
 
 
-
-
-
+}
+const removeToken = (req,res) => {
+        res.clearCookie('token')
+        res.redirect('http://localhost:3000/')
 }
 module.exports = {
     indexPage,
@@ -111,6 +110,7 @@ module.exports = {
     getBooks,
     getCookie,
     validToken,
-    userContactRequest
+    userContactRequest,
+    removeToken
 
 }

@@ -5,33 +5,30 @@ const userPage = (req,res) => {
 }
 
 const userLogin = async(req,res) => {
+    
     try {
         const userLogin = await userModel.login(req.body.username,req.body.password)
         if(!userLogin.error){
-            res.cookie('token',userLogin.token,{maxAge : 3600000,httpOnly: true})
-            res.status(200).redirect('/')
+            res.cookie('token',userLogin.token,{maxAge : 3600000,httpOnly: true, path: '/'})
+            res.status(200).redirect('/user')
         }
         else{
-            console.log(userLogin.error)
             res.status(500).render('./userPages/userLogin',{message : userLogin.error})
             
         }
     } catch (e) {
-        console.log(e)
         res.status(500).render('./userPages/userLogin',{message : e})
     }
  
 }
 const userRegister = async(req,res) => {
     try {
-        console.log(req.body)
         const user = new userModel(req.body)
         const result = await user.save()
         if(result){
             res.status(200).redirect('/userLogin');
         }
     } catch (error) {
-        console.log(error.message)
         res.render('./userPages/userRegister',{message : error.message})
     }
 
@@ -41,7 +38,6 @@ const userRegister = async(req,res) => {
 const userAddFavoriteAndBorrow = async(req,res) => {
     let responseMessage
     try {
-        console.log(req.body)
         const favoritedOrBorrowedBook = {
             name : req.body.bookName,
             publisher : req.body.bookPublisher,
@@ -82,33 +78,24 @@ const userBorrowedBooksPage =  (req,res) => {
     res.render('./userPages/userBorrowedBooks')
 }
 const getFavoritedBooks = async(req,res) => {
-
-    
     try {
         const jwtVerify = jwt.verify(req.header('authorization').replace('Bearer ',''),process.env.SECRET_KEY)
-        console.log(jwtVerify)
         const userExists = await userModel.findById({_id : jwtVerify.id})
         if(req.params.name === "" || req.params.name == undefined){
             res.status(200).send(userExists.favoritedBooks)
-            console.log(userExists)
         }else{
-            console.log(req.params.name)
             let matchBooks = []
             userExists.favoritedBooks.forEach(e => {
                 if(e.name.includes(req.params.name)){
                     matchBooks.push(e)
                 }
             })
-           console.log(matchBooks)
            res.status(200).send(matchBooks)
         }
        
     } catch (error) {
         res.status(500).send({error : error})
-        console.log(error)
     }
-  
-
 }
 module.exports = {
     userPage,
