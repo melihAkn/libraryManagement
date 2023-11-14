@@ -78,6 +78,7 @@ const userBorrowedBooksPage =  (req,res) => {
     res.render('./userPages/userBorrowedBooks')
 }
 const getFavoritedBooks = async(req,res) => {
+    console.log(req.cookies)
     try {
         const jwtVerify = jwt.verify(req.header('authorization').replace('Bearer ',''),process.env.SECRET_KEY)
         const userExists = await userModel.findById({_id : jwtVerify.id})
@@ -97,6 +98,10 @@ const getFavoritedBooks = async(req,res) => {
         res.status(500).send({error : error})
     }
 }
+
+const userInfos = (req,res) => {
+    res.send()
+}
 module.exports = {
     userPage,
     userLogin,
@@ -104,5 +109,6 @@ module.exports = {
     userAddFavoriteAndBorrow,
     userFavoritedBooksPage,
     userBorrowedBooksPage,
-    getFavoritedBooks
+    getFavoritedBooks,
+    userInfos
 }

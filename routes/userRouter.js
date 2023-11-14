@@ -9,4 +9,6 @@ userRouter.get('/favoritedBooks',userController.userFavoritedBooksPage)
 
 userRouter.get('/borrowedBooks',userController.userBorrowedBooksPage)
 userRouter.get('/getFavoritedBooks/:name?',userController.getFavoritedBooks)
+
+userRouter.get('/getUserInfos',userController.userInfos)
 module.exports = userRouter

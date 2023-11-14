@@ -5,21 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/main.css">
+        <style >
+        .logout-link {
+    cursor: pointer; 
+  }
+    </style>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
            
         <header >
-        <nav id="indexNavBar">
+        <nav id="indexNavBar" class="navigators">
             <ul>
                 <li><a href="/">main page</a></li>
                 <li><a href="/searchBooks">Books</a></li>
+                <li><a href="/user/favoritedBooks">favorite Books </a></li>
+                <li><a href="/user">account </a></li>
                 <li><a href="/about">about</a></li>
                 <li><a href="/contact">contact </a></li>
-                <li><a href="/user">account </a></li>
+                <li class="logout-link"><a>logout </a></li>
             </ul>
         </nav>
         </header>
+            <script>
+        const navigators = document.querySelectorAll('.navigators')
+    navigators[0].children[0].children[6].addEventListener('click',function(){
+    fetch('/removeToken',{
+   method : 'get',
+})
+.then( _ => {
+    window.location.href = "/"
+})
+})
+    </script>
         {{{body}}}
 </body>
 </html>

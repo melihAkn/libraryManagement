@@ -64,24 +64,11 @@ const getFavoritedBooks = _ => {
     .catch(e => console.log(e))
 }
 
-async function logout() {
-    const navigators = document.querySelectorAll('.navigators')
-    navigators[0].children[5].addEventListener('click',function(){
-        fetch('/removeToken',{
-       method : 'get',
-       headers : {
-        authorization : `Bearer ${token}`
-       }
-    })
-    .then( _ => {
-        window.location.href = "/"
-    })
-    })
-}
+
+
 searchButton.addEventListener('click',getFavoritedBooks)
 document.addEventListener('DOMContentLoaded',async function(){
     await getToken()
     getFavoritedBooks()
-   await logout()
     
 })

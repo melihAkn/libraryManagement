@@ -46,7 +46,6 @@ async function tokenIsValid(token){
     })
     .catch(e => console.log(e))
 }
-//eger token gecerliyse nav barda kayıt ol ve giris yap navigasyonları kaldırılmalı ve hesabım ve cıkıs yap navigasyonları eklenmeli eğer çıkış yaparsa tam tersi
 const getBooks = _ => {
     
     const getBooksURL = `/getBooks/${searchText.value.toString()}`
