@@ -26,9 +26,8 @@ const userRegisterPage = (req,res) => {
 
 
 const getCookie = (req,res) => {
-    //raw headers da token var
     try {
-        const token = req.headers.cookie.split('token=')[1]
+        const token = req.cookies.token
         if(token){
             res.status(200).send({token})
         }
@@ -98,7 +97,7 @@ const userContactRequest = async(req,res) => {
 }
 const removeToken = (req,res) => {
         res.clearCookie('token')
-        res.redirect('http://localhost:3000/')
+        res.redirect('/')
 }
 module.exports = {
     indexPage,

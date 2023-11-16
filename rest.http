@@ -29,3 +29,6 @@ GET {{BASE_URL}}/removeToken
 
 ###
 GET {{BASE_URL}}/user
+
+###
+PATCH {{BASE_URL}}/user/updateUserInfos

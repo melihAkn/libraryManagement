@@ -11,7 +11,10 @@
     next()
   }
   function userPageLayout(req, res, next) {
-    res.locals.layout = 'userLayout'
+    res.locals.layout = 'indexLayout'
+    if(req.cookies.token){
+      res.locals.layout = 'userLoginIndex'
+    }
     next()
   }
   module.exports = {

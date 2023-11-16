@@ -7,27 +7,30 @@
     <link rel="stylesheet" href="/css/account.css">
 </head>
 <body>
-    <form  method="post">
+    <form  method="patch" id="userInfosForm">
     <label for="name">name:</label>
-    <input type="text" id="name" name="name" ><br>
+    <input type="text" id="name" name="name" required><br>
 
     <label for="surname">surname:</label>
-    <input type="text" id="surname" name="surname" ><br>
+    <input type="text" id="surname" name="surname" required><br>
 
     <label for="username">username</label>
     <input type="text" id="username" name="username" disabled ><br>
+    <p>if you are update password enter old one and new one </p>
+    <p>if not want to update password keep blank them </p>
+    <label for="oldPassword">old password:</label>
+    <input type="password" id="oldPassword" name="oldPassword"><br>
 
-    <label for="password">eski Parola:</label>
-    <input type="password" id="password" name="password"><br>
-
-    <label for="password">Yeni Parola:</label>
-    <input type="password" id="password" name="password"><br>
+    <label for="newPassword">new password:</label>
+    <input type="password" id="newPassword" name="newPassword"><br>
 
     <label for="email">email address :</label>
     <input type="email" id="email" name="email" disabled ><br>
 
+    <label for="phoneNumber">phone number :</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required ><br>
 
-    <input type="submit" value="Bilgileri Güncelle">
+    <input type="submit" value="update Infos" id="updateUserInfos">
 </form>
 
 <script src="./script/account.js"></script>
