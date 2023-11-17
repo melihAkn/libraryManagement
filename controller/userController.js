@@ -118,7 +118,6 @@ const updateUserInfos = async(req,res) => {
     try {
         const token = req.header('authorization').replace('Bearer ','')
         const jwtControl = jwt.verify(token,process.env.SECRET_KEY)
-        console.log(req.body)
         if(req.body.oldPassword.length == 0){
             const updateProccess = await userModel.updateOne(
                 { _id: jwtControl.id },
@@ -129,31 +128,35 @@ const updateUserInfos = async(req,res) => {
                     ...(req.body.phoneNumber && { phoneNumber: req.body.phoneNumber }),
                   }
                 }
-              );
+              )
               console.log(updateProccess)
               res.status(200).send({response : {message : 'user infos updated',updatedUser : updateProccess}})
     
         }else{
-            //if old password match database password field gonna be updated or
-            console.log('sdasdadsad')
-    
-
-
-
-
-
-
-
-
-
-            
-    
-            res.status('400').send({response : {message : 'password wrong' , errorCodeAndMessage :updateProccess}})
+            //if old password match database password field gonna be updated
+            const userExist = await userModel.findById({ _id : jwtControl.id})
+            console.log(req.body.oldPassword + " " +userExist.password)
+            if(req.body.oldPassword == userExist.password){
+                const updateProccess = await userModel.updateOne(
+                    { _id: jwtControl.id },
+                     {
+                        $set: {
+                            ...(req.body.name && { name: req.body.name }),
+                            ...(req.body.surname && { surname: req.body.surname }),
+                            ...(req.body.newPassword && { password: req.body.newPassword }),
+                            ...(req.body.phoneNumber && { phoneNumber: req.body.phoneNumber }),
+                  }
+                }
+              )
+              console.log(updateProccess)
+              res.status(200).send({response : {message : 'user infos updated',updatedUser : updateProccess}})
+            }else{
+                res.status(400).send({response : {message : 'password wrong' , errorCodeAndMessage :updateProccess}})
+            }
         }
     } catch (error) {
         res.status(400).send({responseOnError : {message : error.message}})
     }
-   
 }
 module.exports = {
     userPage,
