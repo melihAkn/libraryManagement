@@ -32,3 +32,22 @@ GET {{BASE_URL}}/user
 
 ###
 PATCH {{BASE_URL}}/user/updateUserInfos
+
+
+###
+GET {{BASE_URL}}/admin/getCookie
+
+###
+POST {{BASE_URL}}/admin/login
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "admin"
+}
+###
+GET {{BASE_URL}}/admin/validToken
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDRkMmMyN2VmMDFiMmQxZTlmNjY2MCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwMDMzMjEwOH0.tdZzR889ZvzRrogNzzCbeo8S9A4c4uAcwbO_809rASo"
+
+###
+GET {{BASE_URL}}/admin/getUsers

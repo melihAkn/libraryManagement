@@ -71,15 +71,5 @@ userSchema.statics.login = async (username , password) => {
             token
         }
         }
-        
-
-userSchema.method.generateToken = async (user) => {
-
-
-
-
-}
-
-
 const Users = mongoose.model('users', userSchema);
 module.exports = Users;

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken')
 const secretKey = process.env.SECRET_KEY;
 const mongoose = require('mongoose');
 const schema =  mongoose.Schema
@@ -25,25 +26,26 @@ const adminSchema = new schema({
     },{collection:'admin', timestamps: true})
 
 
-adminSchema.methods.generateToken = async _ => {
-    const loginUser = this;
-    const token = await jwt.sign({_id:loginUser._id,isAdmin : loginUser.isAdmin},
-        secretKey,{expiresIn:'1h'});
-    return token;
-}
-adminSchema.methods.login = async (username , password) => {
-        const filter = {
-            username,
-            password
-          };
-          const adminFind = await Admin.find(filter)
-        if(!adminFind){
-           return {
-            error : "username or password is wrong"
-           }
-        }
-            return adminFind;
+adminSchema.statics.login = async (username , password) => {
+    const secretKey = process.env.ADMIN_SECRET_KEY
+    const filter = {
+        username,
+        password
+      };
+      const adminFind = await Admin.findOne(filter)
+      
+    if(!adminFind){
+       return {
+        error : "username or password is wrong"
+       }
     }
+    const token = jwt.sign({id : adminFind._id,isAdmin : adminFind.isAdmin},secretKey)
+    adminFind.token = token
+        return {
+            admin : adminFind,
+            token
+        }
+        }
 
 const Admin = mongoose.model('admin', adminSchema);
 module.exports = Admin;

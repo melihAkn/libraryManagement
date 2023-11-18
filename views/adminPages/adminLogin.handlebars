@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/userLogin.css">
 </head>
 <body>
-    <div>
-
-        <form>
-            <input type="text">
-            <input type="password">
-            <button type="submit"></button>
+    
+        <form id="myForm" action="/admin/Login" method="post" enctype="application/json" >
+            <input type="text" name="username" placeholder="username">
+            <input type="password" name="password" placeholder="password"> 
+            <button type="submit"> login</button>
+        
     </form>
-    </div>
+    {{message}}
 </body>
 </html>
