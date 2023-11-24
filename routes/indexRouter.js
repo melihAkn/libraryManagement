@@ -9,8 +9,10 @@ indexRouter.get('/',indexController.indexPage)
 indexRouter.get('/about',indexController.aboutPage)
 indexRouter.get('/contact',indexController.contactPage)
 indexRouter.get('/searchBooks',indexController.searchBooksPage)
-indexRouter.get('/getBooks/:name?',indexController.getBooks)
 
+indexRouter.get('/getBooks/:pageNumber/:name?',indexController.getBooks)
+
+indexRouter.get("/countBooks",indexController.getBooksCount)
 
 
 

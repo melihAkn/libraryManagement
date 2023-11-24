@@ -54,14 +54,32 @@ const validToken =(req,res) => {
     }
 }
 
+const getBooksCount = async (req,res) => {
+    const booksCount = await bookModel.find({}).countDocuments()
+    console.log(booksCount)
+    res.status(200).send({booksCount})
+}
+
 const getBooks = async (req,res) => {
     let bookFilter = {
         name :''
     }
-    let books
     if(req.params.name === "" || req.params.name == undefined){
-         books = await bookModel.find({})
-         res.send(books)
+        let books
+        let startNumber = req.params.pageNumber
+        let endNumber = Number(startNumber) + 20
+        console.log( "start number : " + startNumber + " end number :" + endNumber)
+        let returnedArray = [] // daha iyi bir isim hakediyor
+        books = await bookModel.find({})
+
+        for(let i = startNumber; i <= endNumber; i++){
+            returnedArray.push(books[i])
+        }
+        res.send(returnedArray)
+         /*
+         const pageBooks = books.forEach(e => {
+
+         })*/
     }
     else{
         let searchedBooks = []
@@ -110,6 +128,7 @@ module.exports = {
     getCookie,
     validToken,
     userContactRequest,
-    removeToken
+    removeToken,
+    getBooksCount
 
 }

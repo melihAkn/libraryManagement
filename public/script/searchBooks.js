@@ -1,5 +1,6 @@
 const searchButton = document.querySelector('.searchButton')
 const searchText = document.querySelector('.searchText')
+const pageButtonsDiv = document.getElementById('pagingButtons')
 let token
 let isTokenValid
 let userButtonsURL = '/userAddFavoriteAndBorrow'
@@ -46,9 +47,12 @@ async function tokenIsValid(token){
     })
     .catch(e => console.log(e))
 }
-const getBooks = _ => {
+console.log(searchText.value)
+
+const getBooks =async (countDocuments) => {
     
-    const getBooksURL = `/getBooks/${searchText.value.toString()}`
+    const getBooksURL = `/getBooks/${countDocuments}/${searchText.value.toString()}`
+  
     fetch(getBooksURL)
     .then(response => response.json())
     .then(bookData => {
@@ -137,10 +141,38 @@ const getBooks = _ => {
     .catch(e => console.log(e))
 }
 
+const  getCountDocuments =async _ => {
+    fetch(`/countBooks`)
+    .then(response => response.json())
+    .then(data => {
+        
+     
+
+        console.log(data.booksCount)
+        const buttonCount = Math.floor((data.booksCount / 40) - 1)
+        console.log(buttonCount)
+        let pageNumber = 1
+        for ( pageNumber; pageNumber <= buttonCount; pageNumber++) {
+        
+            const pagingButtons = document.createElement("button")
+            pagingButtons.id = pageNumber
+            pagingButtons.textContent = pageNumber
+            pagingButtons.addEventListener('click', _ => {
+                getBooks(pagingButtons.textContent * 40)
+            })
+            pageButtonsDiv.append(pagingButtons)
+        }
+        //burada gelen document sayısına gore buton oluşturmalıyız
+    }).catch(e => console.log(e))
+}
+
+
 searchButton.addEventListener('click',getBooks)
 document.addEventListener('DOMContentLoaded',async function() {
+    
+    getBooks(40)
     await getToken()
     tokenIsValid(token)
-    getBooks()
+    
     
 })
